@@ -23,4 +23,13 @@ def Home():
 
 @app.route("/users",method=['GET'])
 def get_users():
-    users=User.query
+    users=User.query.all()
+    return jsonify([u.to_dict() for u in users])
+
+@app.route('/users/<int:user_id>',method=['GET'])
+def get_user(user_id):
+    user=User.query.get(user_id)
+    if user:
+        return jsonify(user.to_dict())
+    return jsonify({"error":"user not found"}),404
+
