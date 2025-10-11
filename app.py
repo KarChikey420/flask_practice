@@ -33,3 +33,35 @@ def get_user(user_id):
         return jsonify(user.to_dict())
     return jsonify({"error":"user not found"}),404
 
+@app.route('/user/',method=['POST'])
+def add_user():
+    data=request.get_json()
+    new_user=User(name=data['name'],role=data['role'])
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({"message":"user added successfully"}),201
+
+@app.route('/user/<int:user_id>',method=['PUT'])
+def update_user(user_id):
+    user=User.query.get(user_id)
+    if not user:
+        return jsonify({"error":"user not found"}),404
+    
+    data=request.get_json()
+    user.name=data.get('name',user.name)
+    user.role=data.get('role', user.role)
+    db.session.commit()
+    return jsonify({"message":"user updated successfully"})
+
+@app.route('/user/<int:user_id>', method=['DELETE'])
+def delete_user(user_id):
+    user=User.query.get(user_id)
+    if not user:
+        return jsonify({"error":"user not found"}),404
+
+    db.session.delete(user)
+    db.session.commit()
+    return jsonify({"message":"user deleted successfully"})
+
+if __name__=="__main__":
+    app.run(debug=True)
