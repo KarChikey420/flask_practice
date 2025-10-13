@@ -28,9 +28,9 @@ def login():
 def home():
     if 'username' in session:
         return f'''
-    <h1>Welcome {session["username"]}</h1>
-    <a herf="{url_for('logout')}>logout</a>
-    '''
+            <h1>Welcome {session["username"]}</h1>
+            <a href="{url_for('logout')}">logout</a>
+            '''
     return redirect(url_for('login'))
 
 @app.route('/logout')
