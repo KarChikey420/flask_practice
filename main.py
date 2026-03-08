@@ -12,6 +12,7 @@ app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=30)
 
 jwt = JWTManager(app)
 
+# In-memory user store (for demo)
 USERS = {
     "kartikey": generate_password_hash("kartikey@123")
 }
