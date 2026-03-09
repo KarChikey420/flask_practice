@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 import uvicorn
-app=FastAPI()
+
 
 @app.middleware('http')
 async def middleware(request,call_next):
